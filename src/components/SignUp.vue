@@ -2,15 +2,37 @@
     <img alt="Vue logo" src="../assets/resto-logo.png">
     <h1>Sign Up</h1>
     <div class="register">
-        <input type="text" placeholder="Enter Name">
-        <input type="text" placeholder="Enter Email">
-        <input type="password" placeholder="Enter password">
-        <button>Sign Up</button>
+        <input type="text" placeholder="Enter Name" v-model="name">
+        <input type="text" placeholder="Enter Email" v-model="email">
+        <input type="password" placeholder="Enter password" v-model="password">
+        <button v-on:click="signUp">Sign Up</button>
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-    name: 'SignUp'
+    name: 'SignUp',
+    data() {
+        return {
+            name: "",
+            email: "",
+            password: ""
+        }
+    },
+    methods: {
+        async signUp() {
+            console.warn("result");
+            const result = await axios.post("http://localhost:3000/users", {
+                name: this.name,
+                email: this.email,
+                password: this.password
+            });
+            if(result.status === 201) {
+                alert("sign-up done");
+                localStorage.setItem("userInfo", JSON.stringify(result.data))
+            }
+        }
+    }
 }
 </script>
 <style lang="scss">

@@ -1,5 +1,5 @@
 <template>
-  <sign-up></sign-up>
+  <router-view></router-view>
 </template>
 
 <script>
